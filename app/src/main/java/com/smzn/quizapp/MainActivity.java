@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences preferences = getSharedPreferences(MySharedPref,MODE_PRIVATE);
         highscores = preferences.getInt(QuizHighscores,0);
         tHighScores.setText("High Scores : "+highscores);
-        Log.e("Mizan2",String.valueOf(highscores));
+        //Log.e("Mizan2",String.valueOf(highscores));
     }
 
 

@@ -134,7 +134,7 @@ public class QuizActivity extends AppCompatActivity {
         Intent resultIntent = new Intent();
         resultIntent.putExtra(EXTRA_SCORES,quizScores);
         setResult(RESULT_OK,resultIntent);
-        Log.e("mizan","scores is "+quizScores);
+        //Log.e("mizan","scores is "+quizScores);
         finish();
     }
 
