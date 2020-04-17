@@ -15,6 +15,14 @@
         android:textSize="28dp"
         android:textColor="#000"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Highest Scores : 0/1"
+        android:textSize="28dp"
+        android:id="@+id/tvHighScores"
+        android:textColor="#000"/>
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -2,9 +2,11 @@ package com.smzn.quizapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
@@ -35,6 +37,11 @@ public class QuizActivity extends AppCompatActivity {
     private Questions currentQuestion;
     private int quizScores;
     private boolean quizAnswerd;
+
+
+    public static final String EXTRA_SCORES = "extraScores";
+
+    private long onbreakpresstimes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,10 +122,20 @@ public class QuizActivity extends AppCompatActivity {
 
 
         }else {
-            finish();
+            quizFinished();
         }
 
 
+    }
+
+
+    private void quizFinished(){
+
+        Intent resultIntent = new Intent();
+        resultIntent.putExtra(EXTRA_SCORES,quizScores);
+        setResult(RESULT_OK,resultIntent);
+        Log.e("mizan","scores is "+quizScores);
+        finish();
     }
 
 
@@ -174,4 +191,16 @@ public class QuizActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onBackPressed() {
+
+        if(onbreakpresstimes + 2000 > System.currentTimeMillis()){
+            quizFinished();
+        }else {
+            Toast.makeText(this, "press back again to close app !", Toast.LENGTH_SHORT).show();
+        }
+
+
+        onbreakpresstimes = System.currentTimeMillis();
+    }
 }
