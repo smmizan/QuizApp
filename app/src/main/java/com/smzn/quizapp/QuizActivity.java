@@ -44,6 +44,8 @@ public class QuizActivity extends AppCompatActivity {
     public static final String EXTRA_SCORES = "extraScores";
 
 
+    //count down
+
     private static final long COUNTDOWN_TIMER = 30000;
     private ColorStateList colorStateListCountDown;
     private CountDownTimer countDownTimer;
