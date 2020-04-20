@@ -24,7 +24,8 @@
                         android:text="Scores : 0"
                         android:textSize="25sp"
                         android:textColor="#000"
-                        android:id="@+id/tv_score_board"/>
+                        android:id="@+id/tv_score_board"
+                        android:freezesText="true"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -32,7 +33,8 @@
                     android:text="Question 0/x"
                     android:textSize="25sp"
                     android:textColor="#000"
-                    android:id="@+id/tv_number_of_question"/>
+                    android:id="@+id/tv_number_of_question"
+                    android:freezesText="true"/>
 
             </LinearLayout>
 
@@ -51,7 +53,8 @@
                 android:layout_gravity="right"
                 android:textSize="35sp"
                 android:textColor="#000"
-                android:id="@+id/tv_time_remaining"/>
+                android:id="@+id/tv_time_remaining"
+                android:freezesText="true"/>
 
         </LinearLayout>
 
@@ -68,7 +71,8 @@
                 android:layout_height="wrap_content"
                 android:text="This is one of the Question"
                 android:textSize="20sp"
-                android:id="@+id/tv_question"/>
+                android:id="@+id/tv_question"
+                android:freezesText="true"/>
 
 
         <RadioGroup
@@ -80,17 +84,20 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Options 1"
-                    android:id="@+id/button_option_1"/>
+                    android:id="@+id/button_option_1"
+                    android:freezesText="true"/>
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Options 2"
-                android:id="@+id/button_option_2"/>
+                android:id="@+id/button_option_2"
+                android:freezesText="true"/>
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Options 3"
-                android:id="@+id/button_option_3"/>
+                android:id="@+id/button_option_3"
+                android:freezesText="true"/>
         </RadioGroup>
 
         <Button
@@ -102,7 +109,8 @@
             android:layout_marginTop="20dp"
             android:textAlignment="center"
             android:padding="10dp"
-            android:id="@+id/button_submit_next"/>
+            android:id="@+id/button_submit_next"
+            android:freezesText="true"/>
 
     </LinearLayout>
 

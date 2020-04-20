@@ -31,7 +31,7 @@ public class QuizActivity extends AppCompatActivity {
     RadioButton radioButton1,radioButton2,radioButton3;
     Button bSubmit;
 
-    private List<Questions> questionsArrayList;
+    private ArrayList<Questions> questionsArrayList;
 
     private ColorStateList colorStateList;
     private int questionCounter;
@@ -53,6 +53,14 @@ public class QuizActivity extends AppCompatActivity {
 
 
     private long onbreakpresstimes;
+
+
+    private static final String KEY_SCORE = "keyScore";
+    private static final String KEY_QUESTION_COUNT = "keyQuestionCount";
+    private static final String KEY_TIME_REMAINING = "keyTimeRemaining";
+    private static final String KEY_QUESTIONS = "keyQestion";
+    private static final String KEY_ANSWERED = "keyAnsered";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,13 +87,38 @@ public class QuizActivity extends AppCompatActivity {
 
         colorStateListCountDown = tQuizRemainingTime.getTextColors();
 
-        MyDatabaseHelper myDatabaseHelper = new MyDatabaseHelper(this);
-        questionsArrayList = myDatabaseHelper.getAllQuestions();
 
-        questionCountTotal = questionsArrayList.size();
-        Collections.shuffle(questionsArrayList);
+        if(savedInstanceState==null){
 
-        showNextQuestions();
+            MyDatabaseHelper myDatabaseHelper = new MyDatabaseHelper(this);
+            questionsArrayList = myDatabaseHelper.getAllQuestions();
+
+            questionCountTotal = questionsArrayList.size();
+            Collections.shuffle(questionsArrayList);
+
+            showNextQuestions();
+
+        }else
+        {
+            questionsArrayList = savedInstanceState.getParcelableArrayList(KEY_QUESTIONS);
+            questionCountTotal = questionsArrayList.size();
+            questionCounter = savedInstanceState.getInt(KEY_QUESTION_COUNT);
+            currentQuestion = questionsArrayList.get(questionCounter - 1);
+            quizScores = savedInstanceState.getInt(KEY_SCORE);
+            timeLeftinMillies = savedInstanceState.getLong(KEY_TIME_REMAINING);
+            quizAnswerd = savedInstanceState.getBoolean(KEY_ANSWERED);
+
+
+            if(!quizAnswerd){
+                startCountDownTimer();
+            }else{
+                updateCountDownText();
+                showSolution();
+            }
+
+        }
+
+
 
 
         bSubmit.setOnClickListener(new View.OnClickListener() {
@@ -277,5 +310,16 @@ public class QuizActivity extends AppCompatActivity {
         if(countDownTimer != null){
             countDownTimer.cancel();
         }
+    }
+
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(KEY_SCORE,quizScores);
+        outState.putInt(KEY_QUESTION_COUNT,questionCountTotal);
+        outState.putLong(KEY_TIME_REMAINING,timeLeftinMillies);
+        outState.putBoolean(KEY_ANSWERED,quizAnswerd);
+        outState.putParcelableArrayList(KEY_QUESTIONS,questionsArrayList);
     }
 }

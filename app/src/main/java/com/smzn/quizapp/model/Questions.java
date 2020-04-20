@@ -1,6 +1,9 @@
 package com.smzn.quizapp.model;
 
-public class Questions {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Questions implements Parcelable {
 
     private String questionName;
     private String question1;
@@ -58,5 +61,15 @@ public class Questions {
 
     public void setQueestionNumber(int queestionNumber) {
         this.queestionNumber = queestionNumber;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+
     }
 }

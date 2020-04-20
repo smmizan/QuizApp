@@ -88,8 +88,8 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
 
 
-    public List<Questions> getAllQuestions(){
-        List<Questions> questionsList = new ArrayList<>();
+    public ArrayList<Questions> getAllQuestions(){
+        ArrayList<Questions> questionsList = new ArrayList<>();
         db = getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM "+ QuestionsTable.TABLE_NAME,null);
 
