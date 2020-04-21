@@ -91,7 +91,7 @@ public class QuizActivity extends AppCompatActivity {
         if(savedInstanceState==null){
 
             MyDatabaseHelper myDatabaseHelper = new MyDatabaseHelper(this);
-            questionsArrayList = myDatabaseHelper.getAllQuestions();
+            questionsArrayList = myDatabaseHelper.getQuestions("medium");
 
             questionCountTotal = questionsArrayList.size();
             Collections.shuffle(questionsArrayList);

@@ -15,5 +15,6 @@ public final class Contract {
         public static final String COLUMN_QUESTION_2 = "qestion2";
         public static final String COLUMN_QUESTION_3 = "qestion3";
         public static final String COLUMN_QUESTION_ANSWER = "question_ans";
+        public static final String COLUMN_QUESTION_DIFF_LEVEL = "question_level";
     }
 }

@@ -40,7 +40,8 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
                 QuestionsTable.COLUMN_QUESTION_1 + " TEXT, " +
                 QuestionsTable.COLUMN_QUESTION_2 + " TEXT, " +
                 QuestionsTable.COLUMN_QUESTION_3 + " TEXT, " +
-                QuestionsTable.COLUMN_QUESTION_ANSWER + " INTEGER" +
+                QuestionsTable.COLUMN_QUESTION_ANSWER + " INTEGER, " +
+                QuestionsTable.COLUMN_QUESTION_DIFF_LEVEL + " TEXT" +
                 " ) ";
         db.execSQL(CEATE_QUIZ_QUESTIONS_TABLE);
 
@@ -59,20 +60,23 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
 
     private void quizQuestionsBank(){
-        Questions questions1 = new Questions("A is correct","A","B","C",1);
+        Questions questions1 = new Questions("Lavel Easy : A is correct","A","B","C",1,Questions.DIFFICULTY_EASY);
         addQuestions(questions1);
 
-        Questions questions2 = new Questions("B is correct","A","B","C",2);
+        Questions questions2 = new Questions("Lavel Hard : A is correct","A","B","C",1,Questions.DIFFICULTY_HARD);
         addQuestions(questions2);
 
-        Questions questions3 = new Questions("C is correct","A","B","C",3);
+        Questions questions3 = new Questions("Lavel Medium : A is correct","A","B","C",1,Questions.DIFFICULTY_MEDIUM);
         addQuestions(questions3);
 
-        Questions questions4 = new Questions("B is correct","A","B","C",2);
+        Questions questions4 = new Questions("Lavel Medium : A is correct","A","B","C",1,Questions.DIFFICULTY_MEDIUM);
         addQuestions(questions4);
 
-        Questions questions5 = new Questions("C is correct","A","B","C",3);
+        Questions questions5 = new Questions("Lavel Easy : A is correct","A","B","C",1,Questions.DIFFICULTY_EASY);
         addQuestions(questions5);
+
+        Questions questions6 = new Questions("Lavel Easy : A is correct","A","B","C",1,Questions.DIFFICULTY_EASY);
+        addQuestions(questions6);
     }
 
 
@@ -83,6 +87,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(QuestionsTable.COLUMN_QUESTION_2,questions.getQuestion2());
         contentValues.put(QuestionsTable.COLUMN_QUESTION_3,questions.getQuestion3());
         contentValues.put(QuestionsTable.COLUMN_QUESTION_ANSWER,questions.getQueestionNumber());
+        contentValues.put(QuestionsTable.COLUMN_QUESTION_DIFF_LEVEL,questions.getDifficultLavel());
         db.insert(QuestionsTable.TABLE_NAME,null,contentValues);
     }
 
@@ -102,6 +107,41 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
                 questions.setQuestion2(cursor.getString(cursor.getColumnIndex(QuestionsTable.COLUMN_QUESTION_2)));
                 questions.setQuestion3(cursor.getString(cursor.getColumnIndex(QuestionsTable.COLUMN_QUESTION_3)));
                 questions.setQueestionNumber(cursor.getInt(cursor.getColumnIndex(QuestionsTable.COLUMN_QUESTION_ANSWER)));
+                questions.setDifficultLavel(cursor.getString(cursor.getColumnIndex(QuestionsTable.COLUMN_QUESTION_DIFF_LEVEL)));
+                questionsList.add(questions);
+
+
+            }while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        return questionsList;
+
+
+    }
+
+
+
+    public ArrayList<Questions> getQuestions(String difficultLavel){
+        ArrayList<Questions> questionsList = new ArrayList<>();
+        db = getReadableDatabase();
+
+        String selectionArray[] = new String[]{difficultLavel};
+
+
+        Cursor cursor = db.rawQuery("SELECT * FROM "+ QuestionsTable.TABLE_NAME + " WHERE "+
+                QuestionsTable.COLUMN_QUESTION_DIFF_LEVEL + " = ?",selectionArray);
+
+        if (cursor.moveToFirst()){
+            do {
+
+                Questions questions = new Questions();
+                questions.setQuestionName(cursor.getString(cursor.getColumnIndex(QuestionsTable.COLUMN_QUESTION)));
+                questions.setQuestion1(cursor.getString(cursor.getColumnIndex(QuestionsTable.COLUMN_QUESTION_1)));
+                questions.setQuestion2(cursor.getString(cursor.getColumnIndex(QuestionsTable.COLUMN_QUESTION_2)));
+                questions.setQuestion3(cursor.getString(cursor.getColumnIndex(QuestionsTable.COLUMN_QUESTION_3)));
+                questions.setQueestionNumber(cursor.getInt(cursor.getColumnIndex(QuestionsTable.COLUMN_QUESTION_ANSWER)));
+                questions.setDifficultLavel(cursor.getString(cursor.getColumnIndex(QuestionsTable.COLUMN_QUESTION_DIFF_LEVEL)));
                 questionsList.add(questions);
 
 

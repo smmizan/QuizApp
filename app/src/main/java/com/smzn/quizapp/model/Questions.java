@@ -5,23 +5,51 @@ import android.os.Parcelable;
 
 public class Questions implements Parcelable {
 
+
+    public static final String DIFFICULTY_EASY = "easy";
+    public static final String DIFFICULTY_MEDIUM = "medium";
+    public static final String DIFFICULTY_HARD = "hard";
+
     private String questionName;
     private String question1;
     private String question2;
     private String question3;
     private int queestionNumber;
+    private String difficultLavel;
 
-    public Questions(String questionName, String question1, String question2, String question3, int queestionNumber) {
+    public Questions(String questionName, String question1, String question2, String question3, int queestionNumber,String difficultLavel) {
         this.questionName = questionName;
         this.question1 = question1;
         this.question2 = question2;
         this.question3 = question3;
         this.queestionNumber = queestionNumber;
+        this.difficultLavel=difficultLavel;
     }
 
 
     public Questions()
     {}
+
+    protected Questions(Parcel in) {
+        questionName = in.readString();
+        question1 = in.readString();
+        question2 = in.readString();
+        question3 = in.readString();
+        queestionNumber = in.readInt();
+        difficultLavel = in.readString();
+    }
+
+    public static final Creator<Questions> CREATOR = new Creator<Questions>() {
+        @Override
+        public Questions createFromParcel(Parcel in) {
+            return new Questions(in);
+        }
+
+        @Override
+        public Questions[] newArray(int size) {
+            return new Questions[size];
+        }
+    };
 
     public String getQuestionName() {
         return questionName;
@@ -70,6 +98,31 @@ public class Questions implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-
+        dest.writeString(questionName);
+        dest.writeString(question1);
+        dest.writeString(question2);
+        dest.writeString(question3);
+        dest.writeInt(queestionNumber);
+        dest.writeString(difficultLavel);
     }
+
+
+    public String getDifficultLavel() {
+        return difficultLavel;
+    }
+
+    public void setDifficultLavel(String difficultLavel) {
+        this.difficultLavel = difficultLavel;
+    }
+
+
+
+    public static String[] getDifficultLavels(){
+        return new String[]{
+                DIFFICULTY_EASY,
+                DIFFICULTY_MEDIUM,
+                DIFFICULTY_HARD
+        };
+    }
+
 }
