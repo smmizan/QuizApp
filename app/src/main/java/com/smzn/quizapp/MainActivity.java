@@ -8,8 +8,12 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
+
+import com.smzn.quizapp.model.Questions;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,6 +26,9 @@ public class MainActivity extends AppCompatActivity {
     public static final String MySharedPref = "sharedPref";
     public static final String QuizHighscores = "myHighScores";
 
+    private Spinner spinner;
+
+    public static final String DIFFICULTY_LAVEL = "difficultLavel";
 
 
     @Override
@@ -30,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         button = findViewById(R.id.btn_start_quiz);
+        spinner = findViewById(R.id.spinner);
 
         tHighScores = findViewById(R.id.tvHighScores);
         loadHighScores();
@@ -38,10 +46,26 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+
+                String QuizLavel = spinner.getSelectedItem().toString();
+
                 Intent intent =new Intent(MainActivity.this,QuizActivity.class);
+                intent.putExtra(DIFFICULTY_LAVEL,QuizLavel);
                 startActivityForResult(intent,REQUEST_ID);
             }
         });
+
+
+
+        String[] spinnerDifficultLavel  = Questions.getDifficultLavels();
+
+        ArrayAdapter<String> spinnnerArray = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_item,spinnerDifficultLavel);
+
+        spinnnerArray.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(spinnnerArray);
+
+
     }
 
 

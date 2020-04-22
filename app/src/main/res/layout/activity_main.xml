@@ -23,6 +23,12 @@
         android:id="@+id/tvHighScores"
         android:textColor="#000"/>
 
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner"/>
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

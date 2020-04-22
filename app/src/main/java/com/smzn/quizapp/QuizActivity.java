@@ -62,6 +62,9 @@ public class QuizActivity extends AppCompatActivity {
     private static final String KEY_ANSWERED = "keyAnsered";
 
 
+    TextView tQuizLavel;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,16 +85,23 @@ public class QuizActivity extends AppCompatActivity {
 
         bSubmit = findViewById(R.id.button_submit_next);
 
+        tQuizLavel = findViewById(R.id.tv_quiz_lavel);
+
 
         colorStateList = radioButton1.getTextColors();
 
         colorStateListCountDown = tQuizRemainingTime.getTextColors();
 
 
+        Intent intent = getIntent();
+        String lavel = intent.getStringExtra(MainActivity.DIFFICULTY_LAVEL);
+
+        tQuizLavel.setText("Quiz Lavel : "+lavel);
+
         if(savedInstanceState==null){
 
             MyDatabaseHelper myDatabaseHelper = new MyDatabaseHelper(this);
-            questionsArrayList = myDatabaseHelper.getQuestions("medium");
+            questionsArrayList = myDatabaseHelper.getQuestions(lavel);
 
             questionCountTotal = questionsArrayList.size();
             Collections.shuffle(questionsArrayList);
