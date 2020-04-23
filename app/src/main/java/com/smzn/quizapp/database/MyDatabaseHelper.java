@@ -1,5 +1,6 @@
 package com.smzn.quizapp.database;
 
+import android.content.ComponentName;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -10,6 +11,7 @@ import android.widget.Toast;
 
 
 import com.smzn.quizapp.Contract.*;
+import com.smzn.quizapp.model.Categories;
 import com.smzn.quizapp.model.Questions;
 
 import java.util.ArrayList;
@@ -33,6 +35,13 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         this.db=db;
 
+        final String CREATE_QUIZ_CATEGORIES = "CREATE TABLE "+
+                CagetoriesTable.TABLE_CATEGORIES + " ( "+
+                CagetoriesTable._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "+
+                CagetoriesTable.COLUMN_NAME + " TEXT " +
+                " ) ";
+
+
         final String CEATE_QUIZ_QUESTIONS_TABLE = "CREATE TABLE "+
                 QuestionsTable.TABLE_NAME + " ( " +
                 QuestionsTable._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -41,16 +50,24 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
                 QuestionsTable.COLUMN_QUESTION_2 + " TEXT, " +
                 QuestionsTable.COLUMN_QUESTION_3 + " TEXT, " +
                 QuestionsTable.COLUMN_QUESTION_ANSWER + " INTEGER, " +
-                QuestionsTable.COLUMN_QUESTION_DIFF_LEVEL + " TEXT" +
+                QuestionsTable.COLUMN_QUESTION_DIFF_LEVEL + " TEXT, " +
+                QuestionsTable.COLUMN_CATEGORIES + " INTEGER, "+
+                "FOREIGN KEY("+QuestionsTable.COLUMN_CATEGORIES+") REFERENCES "+
+                CagetoriesTable.TABLE_CATEGORIES+ "(" + CagetoriesTable._ID + ")" + "ON DELETE CASCADE"+
                 " ) ";
+
+        db.execSQL(CREATE_QUIZ_CATEGORIES);
+
         db.execSQL(CEATE_QUIZ_QUESTIONS_TABLE);
 
+        quizQuestionsCategories();
         quizQuestionsBank();
 
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        db.execSQL("DROP TABLE "+ CagetoriesTable.COLUMN_NAME);
         db.execSQL("DROP TABLE "+ QuestionsTable.TABLE_NAME);
         onCreate(db);
 
@@ -59,23 +76,56 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     }
 
 
+    @Override
+    public void onConfigure(SQLiteDatabase db) {
+        super.onConfigure(db);
+        db.setForeignKeyConstraintsEnabled(true);
+    }
+
+
+
+    private void quizQuestionsCategories(){
+        Categories categories_1 = new Categories("Programming");
+        addCategories(categories_1);
+
+        Categories categories_2 = new Categories("Data Structure");
+        addCategories(categories_2);
+
+        Categories categories_3 = new Categories("Physics");
+        addCategories(categories_3);
+
+        Categories categories_4 = new Categories("Graph Theory");
+        addCategories(categories_4);
+
+
+    }
+
+
+
+    private void addCategories(Categories categories){
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(CagetoriesTable.COLUMN_NAME,categories.getName());
+        db.insert(CagetoriesTable.TABLE_CATEGORIES,null,contentValues);
+
+    }
+
     private void quizQuestionsBank(){
-        Questions questions1 = new Questions("Lavel Easy : A is correct","A","B","C",1,Questions.DIFFICULTY_EASY);
+        Questions questions1 = new Questions("Programming : Lavel Easy : A is correct","A","B","C",1,Questions.DIFFICULTY_EASY,Categories.PROGRAMMING);
         addQuestions(questions1);
 
-        Questions questions2 = new Questions("Lavel Hard : A is correct","A","B","C",1,Questions.DIFFICULTY_HARD);
+        Questions questions2 = new Questions("Programming : Lavel Hard : A is correct","A","B","C",1,Questions.DIFFICULTY_HARD,Categories.PROGRAMMING);
         addQuestions(questions2);
 
-        Questions questions3 = new Questions("Lavel Medium : A is correct","A","B","C",1,Questions.DIFFICULTY_MEDIUM);
+        Questions questions3 = new Questions("Data Structure : Lavel Medium : A is correct","A","B","C",1,Questions.DIFFICULTY_MEDIUM,Categories.DATA_STRUCTURE);
         addQuestions(questions3);
 
-        Questions questions4 = new Questions("Lavel Medium : A is correct","A","B","C",1,Questions.DIFFICULTY_MEDIUM);
+        Questions questions4 = new Questions("Graph Theory : Lavel Medium : A is correct","A","B","C",1,Questions.DIFFICULTY_MEDIUM,Categories.GRAPH_THEORY);
         addQuestions(questions4);
 
-        Questions questions5 = new Questions("Lavel Easy : A is correct","A","B","C",1,Questions.DIFFICULTY_EASY);
+        Questions questions5 = new Questions("Physics : Lavel Easy : A is correct","A","B","C",1,Questions.DIFFICULTY_EASY,Categories.PHYSICS);
         addQuestions(questions5);
 
-        Questions questions6 = new Questions("Lavel Easy : A is correct","A","B","C",1,Questions.DIFFICULTY_EASY);
+        Questions questions6 = new Questions("Physics : Lavel Easy : A is correct","A","B","C",1,Questions.DIFFICULTY_EASY,Categories.PHYSICS);
         addQuestions(questions6);
     }
 
@@ -88,6 +138,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(QuestionsTable.COLUMN_QUESTION_3,questions.getQuestion3());
         contentValues.put(QuestionsTable.COLUMN_QUESTION_ANSWER,questions.getQueestionNumber());
         contentValues.put(QuestionsTable.COLUMN_QUESTION_DIFF_LEVEL,questions.getDifficultLavel());
+        contentValues.put(QuestionsTable.COLUMN_CATEGORIES,questions.getCategoriesID());
         db.insert(QuestionsTable.TABLE_NAME,null,contentValues);
     }
 
@@ -102,12 +153,14 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
             do {
 
                 Questions questions = new Questions();
+                questions.setId(cursor.getInt(cursor.getColumnIndex(QuestionsTable._ID)));
                 questions.setQuestionName(cursor.getString(cursor.getColumnIndex(QuestionsTable.COLUMN_QUESTION)));
                 questions.setQuestion1(cursor.getString(cursor.getColumnIndex(QuestionsTable.COLUMN_QUESTION_1)));
                 questions.setQuestion2(cursor.getString(cursor.getColumnIndex(QuestionsTable.COLUMN_QUESTION_2)));
                 questions.setQuestion3(cursor.getString(cursor.getColumnIndex(QuestionsTable.COLUMN_QUESTION_3)));
                 questions.setQueestionNumber(cursor.getInt(cursor.getColumnIndex(QuestionsTable.COLUMN_QUESTION_ANSWER)));
                 questions.setDifficultLavel(cursor.getString(cursor.getColumnIndex(QuestionsTable.COLUMN_QUESTION_DIFF_LEVEL)));
+                questions.setCategoriesID(cursor.getInt(cursor.getColumnIndex(QuestionsTable.COLUMN_CATEGORIES)));
                 questionsList.add(questions);
 
 
@@ -136,12 +189,14 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
             do {
 
                 Questions questions = new Questions();
+                questions.setId(cursor.getInt(cursor.getColumnIndex(QuestionsTable._ID)));
                 questions.setQuestionName(cursor.getString(cursor.getColumnIndex(QuestionsTable.COLUMN_QUESTION)));
                 questions.setQuestion1(cursor.getString(cursor.getColumnIndex(QuestionsTable.COLUMN_QUESTION_1)));
                 questions.setQuestion2(cursor.getString(cursor.getColumnIndex(QuestionsTable.COLUMN_QUESTION_2)));
                 questions.setQuestion3(cursor.getString(cursor.getColumnIndex(QuestionsTable.COLUMN_QUESTION_3)));
                 questions.setQueestionNumber(cursor.getInt(cursor.getColumnIndex(QuestionsTable.COLUMN_QUESTION_ANSWER)));
                 questions.setDifficultLavel(cursor.getString(cursor.getColumnIndex(QuestionsTable.COLUMN_QUESTION_DIFF_LEVEL)));
+                questions.setCategoriesID(cursor.getInt(cursor.getColumnIndex(QuestionsTable.COLUMN_CATEGORIES)));
                 questionsList.add(questions);
 
 
