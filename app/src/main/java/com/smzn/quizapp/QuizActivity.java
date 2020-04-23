@@ -1,5 +1,6 @@
 package com.smzn.quizapp;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -15,6 +16,7 @@ import android.widget.RadioGroup;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.smzn.quizapp.database.MyDatabaseHelper;
 import com.smzn.quizapp.model.Questions;
@@ -85,7 +87,7 @@ public class QuizActivity extends AppCompatActivity {
 
         bSubmit = findViewById(R.id.button_submit_next);
 
-        tQuizLavel = findViewById(R.id.tv_quiz_lavel);
+       // tQuizLavel = findViewById(R.id.tv_quiz_lavel);
 
 
         colorStateList = radioButton1.getTextColors();
@@ -96,7 +98,9 @@ public class QuizActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String lavel = intent.getStringExtra(MainActivity.DIFFICULTY_LAVEL);
 
-        tQuizLavel.setText("Quiz Lavel : "+lavel);
+        //tQuizLavel.setText("Quiz Lavel : "+lavel);
+
+        getSupportActionBar().setTitle("Lavel : "+lavel);
 
         if(savedInstanceState==null){
 
