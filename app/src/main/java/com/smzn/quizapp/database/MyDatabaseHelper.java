@@ -143,6 +143,23 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     }
 
 
+    public List<Categories> getAllCategories(){
+        List<Categories> categoriesList = new ArrayList<>();
+        db = getReadableDatabase();
+        Cursor cursor =  db.rawQuery("SELECT * FROM "+ CagetoriesTable.TABLE_CATEGORIES,null);
+        if(cursor.moveToFirst()){
+            do {
+                Categories categories = new Categories();
+                categories.setId(cursor.getInt(cursor.getColumnIndex(CagetoriesTable._ID)));
+                categories.setName(cursor.getString(cursor.getColumnIndex(CagetoriesTable.COLUMN_NAME)));
+                categoriesList.add(categories);
+            }while (cursor.moveToNext());
+        }
+        cursor.close();
+        return categoriesList;
+    }
+
+
 
     public ArrayList<Questions> getAllQuestions(){
         ArrayList<Questions> questionsList = new ArrayList<>();
