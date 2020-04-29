@@ -25,11 +25,22 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     //Context context;
 
 
+    private static MyDatabaseHelper instance;
+
+
     private SQLiteDatabase db;
 
-    public MyDatabaseHelper(Context context) {
+    private MyDatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
+
+    public static synchronized MyDatabaseHelper getInstance(Context context){
+        if(instance == null){
+            instance = new MyDatabaseHelper(context.getApplicationContext());
+        }
+        return instance;
+    }
+
 
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -192,15 +203,25 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
 
 
-    public ArrayList<Questions> getQuestions(String difficultLavel){
+    public ArrayList<Questions> getQuestions(int categorieID,String difficultLavel){
         ArrayList<Questions> questionsList = new ArrayList<>();
         db = getReadableDatabase();
 
-        String selectionArray[] = new String[]{difficultLavel};
+//        String selectionArray[] = new String[]{difficultLavel};
+//
+//
+//        Cursor cursor = db.rawQuery("SELECT * FROM "+ QuestionsTable.TABLE_NAME + " WHERE "+
+//                QuestionsTable.COLUMN_QUESTION_DIFF_LEVEL + " = ?",selectionArray);
 
 
-        Cursor cursor = db.rawQuery("SELECT * FROM "+ QuestionsTable.TABLE_NAME + " WHERE "+
-                QuestionsTable.COLUMN_QUESTION_DIFF_LEVEL + " = ?",selectionArray);
+        String selection = QuestionsTable.COLUMN_CATEGORIES + " = ? "+
+                " AND " + QuestionsTable.COLUMN_QUESTION_DIFF_LEVEL + " = ? ";
+        String selectionArgs[] = new String[]{String.valueOf(categorieID),difficultLavel};
+
+        Cursor cursor = db.query(QuestionsTable.TABLE_NAME,null,selection,selectionArgs,null,null,null);
+
+
+
 
         if (cursor.moveToFirst()){
             do {
