@@ -1,18 +1,16 @@
-package com.smzn.quizapp.database;
+package com.smmizan.quizapp.database;
 
-import android.content.ComponentName;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-import android.widget.Toast;
 
 
-import com.smzn.quizapp.Contract.*;
-import com.smzn.quizapp.model.Categories;
-import com.smzn.quizapp.model.Questions;
+import com.smmizan.quizapp.Contract.*;
+import com.smmizan.quizapp.model.Categories;
+import com.smmizan.quizapp.model.Questions;
 
 import java.util.ArrayList;
 import java.util.List;

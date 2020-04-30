@@ -1,4 +1,4 @@
-package com.smzn.quizapp;
+package com.smmizan.quizapp;
 
 import android.content.Context;
 

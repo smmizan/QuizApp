@@ -1,4 +1,4 @@
-package com.smzn.quizapp.model;
+package com.smmizan.quizapp.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;

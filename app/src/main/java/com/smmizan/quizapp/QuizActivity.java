@@ -1,6 +1,5 @@
-package com.smzn.quizapp;
+package com.smmizan.quizapp;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -8,22 +7,18 @@ import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
-import com.smzn.quizapp.database.MyDatabaseHelper;
-import com.smzn.quizapp.model.Questions;
+import com.smmizan.quizapp.database.MyDatabaseHelper;
+import com.smmizan.quizapp.model.Questions;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 import java.util.Locale;
 
 public class QuizActivity extends AppCompatActivity {

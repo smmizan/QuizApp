@@ -1,4 +1,4 @@
-package com.smzn.quizapp.model;
+package com.smmizan.quizapp.model;
 
 import androidx.annotation.NonNull;
 
