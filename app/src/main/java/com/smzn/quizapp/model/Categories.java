@@ -1,5 +1,7 @@
 package com.smzn.quizapp.model;
 
+import androidx.annotation.NonNull;
+
 public class Categories {
 
     public static final int PROGRAMMING = 1;
@@ -32,5 +34,11 @@ public class Categories {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return getName();
     }
 }

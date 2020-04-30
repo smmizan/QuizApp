@@ -23,11 +23,49 @@
         android:id="@+id/tvHighScores"
         android:textColor="#000"/>
 
-
-    <Spinner
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/spinner"/>
+        android:orientation="horizontal"
+        android:gravity="center">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Difficult Level : "
+                android:paddingRight="20dp"
+                android:textColor="#000"/>
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinner"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Categories : "
+            android:paddingRight="20dp"
+            android:textColor="#000"/>
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:id="@+id/spinnerCategories"/>
+
+    </LinearLayout>
+
+
+
+
+
+
+
 
     <Button
         android:layout_width="wrap_content"
