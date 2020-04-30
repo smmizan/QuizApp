@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Quiz Category : "
-        android:textSize="25sp"
+        android:textSize="18sp"
         android:textColor="#000"
         android:id="@+id/tv_quiz_category"
         android:freezesText="true"/>

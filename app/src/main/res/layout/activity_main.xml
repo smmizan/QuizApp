@@ -12,16 +12,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Quiz App"
-        android:textSize="28dp"
-        android:textColor="#000"/>
+        android:textSize="30dp"
+        android:textColor="#FF5722"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Highest Scores : 0/1"
         android:textSize="28dp"
+        android:layout_marginTop="30dp"
         android:id="@+id/tvHighScores"
-        android:textColor="#000"/>
+        android:textColor="#03A9F4"/>
 
     <LinearLayout
         android:layout_width="match_parent"
