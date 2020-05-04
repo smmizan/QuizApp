@@ -80,7 +80,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="This is one of the Question"
+                android:text="Question is here"
                 android:textSize="20sp"
                 android:id="@+id/tv_question"
                 android:freezesText="true"/>
