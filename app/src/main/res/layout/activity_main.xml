@@ -18,7 +18,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Highest Scores : 0/1"
+        android:text="Highest Score : 0/1"
         android:textSize="28dp"
         android:layout_marginTop="30dp"
         android:id="@+id/tvHighScores"
@@ -33,7 +33,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Difficult Level : "
-                android:paddingRight="20dp"
+                android:paddingRight="25dp"
                 android:textColor="#000"/>
         <Spinner
             android:layout_width="wrap_content"
@@ -51,12 +51,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Categories : "
-            android:paddingRight="20dp"
+            android:paddingRight="25dp"
             android:textColor="#000"/>
         <Spinner
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="12dp"
             android:id="@+id/spinnerCategories"/>
 
     </LinearLayout>
